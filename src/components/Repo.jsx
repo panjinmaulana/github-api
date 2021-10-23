@@ -5,7 +5,7 @@ export default function Repo({ repos }) {
     <div className="mt-3">
       <h5 className="text-center">Repositories</h5>
       <ul className="list-group" style={{ display: "inline", width: "100%" }}>
-        {repos.length &&
+        {repos.length ? (
           repos.map((repo, index) => {
             return (
               <li key={index} href={repo.html_url} className="list-group-item">
@@ -17,7 +17,10 @@ export default function Repo({ repos }) {
                 </div>
               </li>
             );
-          })}
+          })
+        ) : (
+          <p className="text-center">Repository not yet available</p>
+        )}
       </ul>
     </div>
   );

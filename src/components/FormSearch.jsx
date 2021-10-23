@@ -34,8 +34,6 @@ export default function FormSearch() {
     }
   }
 
-  console.log(user);
-
   function config(searchInput) {
     fetch(`https://api.github.com/users/${searchInput}`)
       .then((response) => response.json())
