@@ -58,11 +58,11 @@ export default function FormSearch() {
 
   return (
     <div className="container">
-      <form className="d-flex mx-auto mt-3" style={{ width: "20%" }}>
+      <form className="d-flex mx-auto mt-3" style={{ width: "50%" }}>
         <input
           type="text"
           className="form-control me-2"
-          placeholder="Username github"
+          placeholder="Username github ex:panjinmaulana"
           onChange={(e) => handleChange(e)}
         />
         <button className="btn btn-primary" onClick={(e) => handleClick(e)}>
