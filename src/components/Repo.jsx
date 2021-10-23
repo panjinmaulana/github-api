@@ -4,14 +4,14 @@ export default function Repo({ repos }) {
   return (
     <div className="mt-3">
       <h5 className="text-center">Repositories</h5>
-      <ul class="list-group" style={{ display: "inline", width: "100%" }}>
+      <ul className="list-group" style={{ display: "inline", width: "100%" }}>
         {repos.length &&
           repos.map((repo) => {
             return (
-              <li href={repo.html_url} class="list-group-item">
+              <li href={repo.html_url} className="list-group-item">
                 <div className="d-flex justify-content-between">
                   <p>{repo.name}</p>
-                  <p class="fst-italic" style={{ fontSize: "12px" }}>
+                  <p className="fst-italic" style={{ fontSize: "12px" }}>
                     {repo.language}
                   </p>
                 </div>
