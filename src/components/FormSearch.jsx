@@ -11,6 +11,7 @@ export default function FormSearch() {
   const [loadingUser, setLoadingUser] = useState(true);
   const [loadingRepos, setLoadingRepos] = useState(true);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     config("example");
@@ -28,16 +29,23 @@ export default function FormSearch() {
     if (!searchInput) {
       setError("Please input username github..");
     } else {
+      setMessage(null);
       config(searchInput);
     }
   }
+
+  console.log(user);
 
   function config(searchInput) {
     fetch(`https://api.github.com/users/${searchInput}`)
       .then((response) => response.json())
       .then((data) => {
-        setUser(data);
-        setLoadingUser(false);
+        if (data.message) {
+          setMessage(data.message);
+        } else {
+          setUser(data);
+          setLoadingUser(false);
+        }
       })
       .catch((err) => console.log(err));
 
@@ -52,7 +60,6 @@ export default function FormSearch() {
 
   return (
     <div className="container">
-      {error ? <Alert error={error} /> : null}
       <form className="d-flex mx-auto mt-3" style={{ width: "20%" }}>
         <input
           type="text"
@@ -64,8 +71,12 @@ export default function FormSearch() {
           Search
         </button>
       </form>
-      {loadingUser && loadingRepos ? (
+      {error ? (
+        <Alert error={error} />
+      ) : loadingUser && loadingRepos ? (
         <Loading />
+      ) : message ? (
+        <p className="text-center mt-5">{message}</p>
       ) : (
         <div className="row">
           <div className="col">
