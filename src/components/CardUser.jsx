@@ -2,16 +2,20 @@ import React from "react";
 
 export default function CardUser({ user }) {
   return (
-    <div className="row">
-      <div className="col-lg-3 mx-auto">
-        <div class="card mt-3" style={{ width: "18rem", height: "23rem" }}>
-          <img
-            src={user.avatar_url}
-            className="card-img-top rounded-circle"
-            alt="..."
-          />
-          <div class="card-body">
-            <h5 class="card-title text-center">{user.name}</h5>
+    <div className="text-center mt-3">
+      <h5>Profile</h5>
+      <div class="card mx-auto" style={{ width: "18rem", border: "none" }}>
+        <img
+          src={user.avatar_url}
+          className="card-img-top rounded-circle"
+          alt={user.login}
+        />
+        <div class="card-body">
+          <h5 class="card-title text-center">{user.name || user.login}</h5>
+          <div className="d-flex">
+            <p>{user.public_repos} Repositories</p>
+            <p>{user.followers} Followers</p>
+            <p>{user.following} Following</p>
           </div>
         </div>
       </div>

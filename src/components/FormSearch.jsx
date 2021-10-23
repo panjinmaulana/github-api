@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardUser from "./CardUser";
 import Repo from "./Repo";
 
@@ -6,6 +6,12 @@ export default function FormSearch() {
   const [searchInput, setSearchInput] = useState("");
   const [user, setUser] = useState([]);
   const [repos, setRepos] = useState([]);
+  const [loading, setloading] = useState(false);
+
+  useEffect(() => {
+    config();
+    setSearchInput("example");
+  }, []);
 
   function handleChange(e) {
     setSearchInput(e.target.value);
@@ -13,22 +19,26 @@ export default function FormSearch() {
 
   function handleClick(e) {
     e.preventDefault();
+    config();
+  }
 
+  function config() {
     fetch(`https://api.github.com/users/${searchInput}`)
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setUser(data);
-      })
+      .then((data) => setUser(data))
       .catch((err) => console.log(err));
 
     fetch(`https://api.github.com/users/${searchInput}/repos`)
       .then((response) => response.json())
-      .then((data) => setRepos(data))
+      .then((data) => {
+        console.log(data);
+        setRepos(data);
+      })
       .catch((err) => console.log(err));
   }
+
   return (
-    <div>
+    <div className="container">
       <form className="d-flex mx-auto mt-3" style={{ width: "20%" }}>
         <input
           type="text"
@@ -40,10 +50,20 @@ export default function FormSearch() {
           Search
         </button>
       </form>
-      <div className="d-flex flex-row ">
-        <CardUser user={user} />
-        <Repo repos={repos} />
-      </div>
+      {loading ? (
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      ) : (
+        <div className="row">
+          <div className="col">
+            <CardUser user={user} />
+          </div>
+          <div className="col">
+            <Repo repos={repos} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

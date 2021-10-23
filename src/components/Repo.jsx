@@ -2,14 +2,23 @@ import React from "react";
 
 export default function Repo({ repos }) {
   return (
-    <ul class="list-group mx-auto mt-3" style={{ width: "50%" }}>
-      {repos.map((repo) => {
-        return (
-          <li href={repo.html_url} class="list-group-item">
-            {repo.name}
-          </li>
-        );
-      })}
-    </ul>
+    <div className="mt-3">
+      <h5 className="text-center">Repositories</h5>
+      <ul class="list-group" style={{ display: "inline", width: "100%" }}>
+        {repos.length &&
+          repos.map((repo) => {
+            return (
+              <li href={repo.html_url} class="list-group-item">
+                <div className="d-flex justify-content-between">
+                  <p>{repo.name}</p>
+                  <p class="fst-italic" style={{ fontSize: "12px" }}>
+                    {repo.language}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+      </ul>
+    </div>
   );
 }
